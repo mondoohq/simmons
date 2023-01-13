@@ -38,27 +38,6 @@ jobs:
       run: |
         pip install pytest-playwright pytest
         playwright install
-    - name: Run Playwright 
-      env: 
-        MONDOO_USER: ${{ secrets.MONDOO_USER }}
-        MONDOO_PASSWORD: ${{ secrets.MONDOO_PASSWORD }}
-      run: | 
-        python3 ./mondoo-us-test.py
-
-  console_verify-eu:
-    timeout-minutes: 10
-    needs: asset_scan
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Install Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.9'
-    - name: Install PyTest & PlayWright, then install browsers
-      run: |
-        pip install pytest-playwright pytest
-        playwright install
     - name: Run Playwright (US)
       env: 
         MONDOO_USER: ${{ secrets.MONDOO_USER }}
