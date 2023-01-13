@@ -31,7 +31,7 @@ jobs:
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       with:
-       args: 'Oh no!  Simmons says: The docker scan test failed!'
+       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The docker scan test failed!'
 
   console_verify-us:
     name: Playwright Console Verification (US)
@@ -61,7 +61,7 @@ jobs:
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       with:
-       args: 'Oh no!  Simmons says: The US console test failed!'
+       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The US :flag_us: console test failed!'
 
   console_verify-eu:
     name: Playwright Console Verification (EU)
@@ -91,4 +91,4 @@ jobs:
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       with:
-       args: 'Oh no!  Simmons says: The EU console test failed!'
+       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The EU :flag_eu: console test failed!'
