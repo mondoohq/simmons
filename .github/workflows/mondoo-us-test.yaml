@@ -20,7 +20,7 @@ jobs:
         playwright install
     - name: Create US Mondoo Config
       run: | 
-        echo ${{ secrets.MONDOO_CONFIG_US }} > mondoo-config.yaml
+        echo ${{ secrets.MONDOO_CONFIG_US }} | base64 -d > mondoo-config.yaml
     - name: Perform scan
       run: | 
         docker run -v `pwd`/mondoo-config.yaml:/root/.config/mondoo/mondoo.yml -e HOSTNAME=alpine-us --rm mondoo/client scan local
