@@ -1,8 +1,8 @@
 name: Exercise Production
 on:
   workflow_dispatch:
-  #schedule:
-  #  - cron:  '0,30 * * * *'
+  schedule:
+    - cron:  '0,30 * * * *'
 jobs:
   asset_scan:
     name: Docker Asset Scan
