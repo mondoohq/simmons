@@ -13,6 +13,9 @@ jobs:
     - name: Create US Mondoo Config
       run: | 
         echo ${{ secrets.MONDOO_CONFIG_US }} | base64 -d > mondoo-config.yaml
+    - name: Pull mondoo/client Image
+      run: | 
+        docker pull mondoo/client
     - name: Perform scan
       run: | 
         docker run -v `pwd`/mondoo-config.yaml:/root/.config/mondoo/mondoo.yml --rm mondoo/client scan local
@@ -23,8 +26,8 @@ jobs:
       run: | 
         docker run -v `pwd`/mondoo-config.yaml:/root/.config/mondoo/mondoo.yml --rm mondoo/client scan local
 
-  console_verify:
-    name: Playwright Console Verification
+  console_verify-us:
+    name: Playwright Console Verification (US)
     timeout-minutes: 10
     needs: asset_scan
     runs-on: ubuntu-latest
@@ -45,6 +48,22 @@ jobs:
         REGION: "US"
       run: | 
         python3 ./mondoo-console-test.py
+
+  console_verify-eu:
+    name: Playwright Console Verification (EU)
+    timeout-minutes: 10
+    needs: asset_scan
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+    - name: Install PyTest & PlayWright, then install browsers
+      run: |
+        pip install pytest-playwright pytest
+        playwright install
     - name: Run Playwright (EU)
       env: 
         MONDOO_USER: ${{ secrets.MONDOO_USER }}
