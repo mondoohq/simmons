@@ -13,7 +13,7 @@ def run(playwright: Playwright) -> None:
     page.get_by_role("button", name="Sign in").click()
     # Navigate to Fleet View and select the "alpine" asset
     page.get_by_role("tab", name="Fleet").click()
-    page.get_by_role("cell", name="alpine").click()
+    page.get_by_role("cell", name="alpine").nth(0).click()
     # Check for a vulnerability count (should be 0 of 15 for Alpine Image)
     page.get_by_text("Platform Vulnerabilities").click()
     totalVulns = page.get_by_text("total")
