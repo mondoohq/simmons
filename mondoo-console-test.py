@@ -38,6 +38,7 @@ def run(playwright: Playwright) -> None:
     page.get_by_role("button", name="Done").click()
     page.get_by_role("button", name="Delete").click()
     # Logout
+    page.get_by_role("button").nth(3).click()
     page.get_by_role("menuitem", name="Logout").click()
 
     # Cleanup
