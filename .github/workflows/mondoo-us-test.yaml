@@ -23,7 +23,7 @@ jobs:
         echo ${{ secrets.MONDOO_CONFIG_US }} > mondoo-config.yaml
     - name: Perform scan
       run: | 
-        docker run -v `pwd`/mondoo-config.yaml:/root/.config/mondoo/mondoo.yml -e HOSTNAME=alpine-us --rm -it mondoo/client scan local
+        docker run -v `pwd`/mondoo-config.yaml:/root/.config/mondoo/mondoo.yml -e HOSTNAME=alpine-us --rm mondoo/client scan local
     - name: Run Playwright 
       env: 
         MONDOO_USER: ${{ secrets.MONDOO_USER }}
