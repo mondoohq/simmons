@@ -19,10 +19,13 @@ def run(playwright: Playwright) -> None:
     page.get_by_label("Password").fill(os.environ['MONDOO_PASSWORD'])
     page.get_by_role("button", name="Sign in").click()
     # Select Region & Select Default Space
-    page.get_by_role("link", name=os.environ['REGION']).click()
+    page.get_by_role("link", name="Mondoo Dashboard").click()
+    page.get_by_role("button", name="US").click()
+    page.get_by_role("button", name=os.environ['REGION']).click()
     time.sleep(2) # The UI needs a sec to catch up here.
-    page.goto("https://console.mondoo.com/space/overview")
-    # Navigate to Fleet View and select the "alpine" asset
+    # Navigate to Default Space, thenFleet View and select the "alpine" asset
+    #page.goto("https://console.mondoo.com/space/overview")  ## Alternate method to open default space
+    page.get_by_role("link", name=re.compile("default Open")).click() 
     page.get_by_role("tab", name="Fleet").click()
     page.get_by_role("cell", name="alpine").nth(0).click()
     # Check for a vulnerability count (should be 0 of 15 for Alpine Image)
@@ -32,6 +35,7 @@ def run(playwright: Playwright) -> None:
     # Delete the asset and confirm
     page.get_by_role("link", name="Fleet").click()
     page.get_by_role("main").locator("button").nth(1).click()
+    time.sleep(1)
     page.get_by_role("row", name="Asset Name Platform Score Last Updated").get_by_role("checkbox").check()
     page.locator("#assets-batch-edit-selection").click()
     page.get_by_role("option", name="Delete").click()
