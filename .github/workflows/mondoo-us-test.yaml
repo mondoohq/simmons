@@ -25,6 +25,13 @@ jobs:
     - name: Perform scan
       run: | 
         docker run -v `pwd`/mondoo-config.yaml:/root/.config/mondoo/mondoo.yml --rm mondoo/client scan local
+    - name: Discord notification
+      uses: Ilshidur/action-discord@0.3.2
+      if: failure()
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      with:
+       args: 'Oh no!  Simmons says: The docker scan test failed!'
 
   console_verify-us:
     name: Playwright Console Verification (US)
@@ -48,6 +55,13 @@ jobs:
         REGION: "US"
       run: | 
         python3 ./mondoo-console-test.py
+    - name: Discord notification
+      uses: Ilshidur/action-discord@0.3.2
+      if: failure()
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      with:
+       args: 'Oh no!  Simmons says: The US console test failed!'
 
   console_verify-eu:
     name: Playwright Console Verification (EU)
@@ -71,3 +85,10 @@ jobs:
         REGION: "EU"
       run: | 
         python3 ./mondoo-console-test.py
+    - name: Discord notification
+      uses: Ilshidur/action-discord@0.3.2
+      if: failure()
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      with:
+       args: 'Oh no!  Simmons says: The EU console test failed!'
