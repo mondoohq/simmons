@@ -1,10 +1,11 @@
-name: Exercise US Production
+name: Exercise Production
 on:
   workflow_dispatch:
   #schedule:
   #  - cron:  '0,30 * * * *'
 jobs:
   asset_scan:
+    name: Docker Asset Scan
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
@@ -22,7 +23,8 @@ jobs:
       run: | 
         docker run -v `pwd`/mondoo-config.yaml:/root/.config/mondoo/mondoo.yml --rm mondoo/client scan local
 
-  console_verify-us:
+  console_verify:
+    name: Playwright Console Verification
     timeout-minutes: 10
     needs: asset_scan
     runs-on: ubuntu-latest
