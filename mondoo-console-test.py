@@ -7,9 +7,10 @@
 from playwright.sync_api import Playwright, sync_playwright, expect, Locator
 import re
 import os
+import time
 
 def run(playwright: Playwright) -> None:
-    browser = playwright.chromium.launch(headless=True)
+    browser = playwright.chromium.launch(headless=False)
     context = browser.new_context()
     page = context.new_page()
     page.goto("https://console.mondoo.com/")
@@ -19,6 +20,7 @@ def run(playwright: Playwright) -> None:
     page.get_by_role("button", name="Sign in").click()
     # Select Region & Select Default Space
     page.get_by_role("link", name=os.environ['REGION']).click()
+    time.sleep(2) # The UI needs a sec to catch up here.
     page.goto("https://console.mondoo.com/space/overview")
     # Navigate to Fleet View and select the "alpine" asset
     page.get_by_role("tab", name="Fleet").click()
@@ -34,6 +36,7 @@ def run(playwright: Playwright) -> None:
     page.locator("#assets-batch-edit-selection").click()
     page.get_by_role("option", name="Delete").click()
     page.get_by_role("button", name="Done").click()
+    page.get_by_role("button", name="Delete").click()
     # Logout
     page.get_by_role("menuitem", name="Logout").click()
 
