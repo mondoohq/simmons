@@ -1,0 +1,32 @@
+name: Exercise US Production
+on:
+  workflow_dispatch:
+  schedule:
+    # * is a special character in YAML so you have to quote this string
+    - cron:  '0,30 * * * *'
+jobs:
+  test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+    - name: Install PyTest & PlayWright, then install browsers
+      run: |
+        pip install pytest-playwright pytest
+        playwright install --with-deps
+    - name: Create US Mondoo Config
+      run: | 
+        echo ${{ secrets.MONDOO_CONFIG_US }} > mondoo-config.yaml
+    - name: Perform scan
+      run: | 
+        docker run -v `pwd`/mondoo-config.yaml:/root/.config/mondoo/mondoo.yml -e HOSTNAME=alpine-us --rm -it mondoo/client scan local
+    - name: Run Playwright 
+      env: 
+        MONDOO_USER: ${{ secrets.MONDOO_USER }}
+        MONDOO_PASSWORD: ${{ secrets.MONDOO_PASSWORD }}
+      run: | 
+        python3 ./mondoo-us-test.py
