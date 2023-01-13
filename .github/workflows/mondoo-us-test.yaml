@@ -17,7 +17,7 @@ jobs:
     - name: Install PyTest & PlayWright, then install browsers
       run: |
         pip install pytest-playwright pytest
-        playwright install --with-deps
+        playwright install
     - name: Create US Mondoo Config
       run: | 
         echo ${{ secrets.MONDOO_CONFIG_US }} > mondoo-config.yaml
