@@ -8,10 +8,12 @@ from playwright.sync_api import Playwright, sync_playwright, expect, Locator
 import re
 import os
 import time
+import atexit
 
 def run(playwright: Playwright) -> None:
     browser = playwright.chromium.launch(headless=True)
-    context = browser.new_context()
+    context = browser.new_context(record_video_dir="videos/")
+    atexit.register(context.close)
     page = context.new_page()
     page.goto("https://console.mondoo.com/")
     page.get_by_role("button", name="Sign in with email instead").click()
