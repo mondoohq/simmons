@@ -8,12 +8,10 @@ from playwright.sync_api import Playwright, sync_playwright, expect, Locator
 import re
 import os
 import time
-import atexit
 
 def run(playwright: Playwright) -> None:
     browser = playwright.chromium.launch(headless=True)
-    context = browser.new_context(record_video_dir="videos/")
-    ##atexit.register(context.close)
+    context = browser.new_context()
     page = context.new_page()
     page.goto("https://console.mondoo.com/")
     page.get_by_role("button", name="Sign in with email instead").click()
@@ -28,7 +26,7 @@ def run(playwright: Playwright) -> None:
     # Navigate to Default Space, thenFleet View and select the "alpine" asset
     #page.goto("https://console.mondoo.com/space/overview")  ## Alternate method to open default space
     page.get_by_role("link", name=re.compile("default Open")).click() 
-    page.get_by_role("tab", name="FleetXXX").click()
+    page.get_by_role("tab", name="Fleet").click()
     page.get_by_role("cell", name="alpine").nth(0).click()
     # Check for a vulnerability count (should be 0 of 15 for Alpine Image)
     page.get_by_text("Platform Vulnerabilities").click()

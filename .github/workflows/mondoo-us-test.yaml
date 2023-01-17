@@ -55,19 +55,13 @@ jobs:
         REGION: "US"
       run: | 
         python3 ./mondoo-console-test.py
-    - name: Save Video on Failure
-      if: failure()
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-failure-video
-        path: video/
     - name: Discord notification
       uses: Ilshidur/action-discord@0.3.2
       if: failure()
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       with:
-       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The US :flag_us: console test failed!\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} '
+       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The US :flag_us: console test failed! -> ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} '
 
   console_verify-eu:
     name: Playwright Console Verification (EU)
@@ -91,16 +85,10 @@ jobs:
         REGION: "EU"
       run: | 
         python3 ./mondoo-console-test.py
-    - name: Save Video on Failure
-      if: failure()
-      uses: actions/upload-artifact@v2
-      with:
-        name: test-failure-video
-        path: video/
     - name: Discord notification
       uses: Ilshidur/action-discord@0.3.2
       if: failure()
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       with:
-       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The EU :flag_eu: console test failed!\n${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} '
+       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The EU :flag_eu: console test failed! -> ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} '
