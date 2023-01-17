@@ -72,3 +72,9 @@ The user being used for testing is "ops+checkly@mondoo.com", you can find the
 credentials in BitWarden.
 
 ***Don't forget to flip headless back to False before committing!***
+
+# TODO: 
+
+[] Re-write using TypeScript Test Runner
+[] Implement video recording on failure and retain as asset for review
+[] Retain single browser runtime of 2 minutes or less. (Under 1 minute would be awesome.)
