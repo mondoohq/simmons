@@ -13,7 +13,7 @@ scan result is present, the vulnerabilities report is available, and then delete
 in the space.
 3. Sends a notification on failure
 
-This repo utilizes the Python API of PlayWright.
+This repo utilizes the TypeScript Test Runner implementation of PlayWright.
 
 # Getting Started with PlayWright
 
@@ -58,23 +58,3 @@ Please note that the code in this repository is implemented using the Python API
 WARNING: If you install all dependancies for the browsers the installation 
 requirements are quite significant.  If possible use Headless mode when
 automating tests for your CI/CD pipeline.
-
-# Local Development
-
-To test problems with or to make modification to the PlayWright steps you will want to:
-
-1. Ensure PlayWright for Python is installed locally (```pip install pytest-playwright && playwright install```)
-2. Modify the script to change ```headless=True``` to ```headless=False```
-3. Define the environment variables for ```MONDOO_USER```, ```MONDOO_PASSWORD```, and ```REGION```
-4. Run the script: ```python3 mondoo-console-test.py```
-
-The user being used for testing is "ops+checkly@mondoo.com", you can find the
-credentials in BitWarden.
-
-***Don't forget to flip headless back to False before committing!***
-
-# TODO: 
-
-[] Re-write using TypeScript Test Runner
-[] Implement video recording on failure and retain as asset for review
-[] Retain single browser runtime of 2 minutes or less. (Under 1 minute would be awesome.)
