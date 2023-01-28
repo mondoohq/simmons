@@ -1,0 +1,12 @@
+{
+  "name": "simmons",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:mondoohq/simmons.git",
+  "author": "Ben Rockwood <benr@cuddletech.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@playwright/test": "^1.30.0"
+  },
+  "scripts": {}
+}
