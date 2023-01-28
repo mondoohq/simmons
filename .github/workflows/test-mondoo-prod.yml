@@ -2,7 +2,7 @@ name: 'TEST: Mondoo Production Regions'
 on:
   workflow_dispatch:
   schedule:
-    - cron:  '0,30 * * * *'
+    - cron:  '15,45 * * * *'
 
 
 jobs:
