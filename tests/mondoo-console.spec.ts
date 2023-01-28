@@ -40,6 +40,7 @@ test('Console Test', async ({ page }) => {
   // Phase 5: Delete the Asset and confirm
   await page.getByRole('tab', { name: 'Fleet' }).click();
   await page.getByRole('main').locator('button').nth(1).click();
+  await new Promise(resolve => setTimeout(resolve, 1000)); //Explicit wait
   await page.getByRole('row', { name: 'Asset Name Platform Score Last Updated' }).getByRole('checkbox').check();
   await page.locator('#assets-batch-edit-selection').click();
   await page.getByRole('option', { name: 'Delete' }).click();
