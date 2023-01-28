@@ -1,0 +1,72 @@
+name: 'TEST: Mondoo Production Regions'
+on:
+  workflow_dispatch:
+  schedule:
+    - cron:  '15,45 * * * *'
+
+
+jobs:
+  asset_scan:
+    name: Docker Asset Scan
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Create US Mondoo Config
+      run: | 
+        echo ${{ secrets.MONDOO_CONFIG_US }} | base64 -d > mondoo-config.yaml
+    - name: Pull mondoo/client Image
+      run: | 
+        docker pull mondoo/client
+    - name: Perform scan
+      run: | 
+        docker run -v `pwd`/mondoo-config.yaml:/root/.config/mondoo/mondoo.yml --rm mondoo/client scan local
+    - name: Create EU Mondoo Config
+      run: | 
+        echo ${{ secrets.MONDOO_CONFIG_EU }} | base64 -d > mondoo-config.yaml
+    - name: Perform scan
+      run: | 
+        docker run -v `pwd`/mondoo-config.yaml:/root/.config/mondoo/mondoo.yml --rm mondoo/client scan local
+    - name: Discord notification
+      uses: Ilshidur/action-discord@0.3.2
+      if: failure()
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      with:
+       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The docker scan test failed!'
+
+
+  console_test:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        region: [US, EU]
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 16
+    - name: Install dependencies
+      run: yarn
+    - name: Install Playwright Browsers
+      run: yarn playwright install --with-deps
+    - name: Run Playwright tests
+      run: yarn playwright test
+      env:
+        MONDOO_USER: ${{ secrets.MONDOO_USER }}
+        MONDOO_PASSWORD: ${{ secrets.MONDOO_PASSWORD }}
+        REGION: ${{ matrix.region }}
+    - uses: actions/upload-artifact@v3
+      if: failure()
+      with:
+        name: simmons-playwright-report
+        path: results/
+        retention-days: 30
+    - name: Discord notification
+      uses: Ilshidur/action-discord@0.3.2
+      if: failure()
+      env:
+        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+      with:
+       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The EU :flag_eu: console test failed! -> ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} '
