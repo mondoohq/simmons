@@ -70,4 +70,4 @@ jobs:
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       with:
-       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The EU :flag_eu: console test failed! -> ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} '
+       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The ${{ matrix.region}} :flag_${{ matrix.region }}: console test failed! -> ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} '
