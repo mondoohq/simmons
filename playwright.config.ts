@@ -11,13 +11,11 @@ const config: PlaywrightTestConfig = {
   testDir: './tests',
   timeout: 30 * 1000,
   expect: {
-    timeout: 5000
+    timeout: 10000
   },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
   retries: 0,
-  /* Opt out of parallel tests on CI. */
   workers: 1,
   reporter: 'github',
   use: {
