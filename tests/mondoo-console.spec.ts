@@ -38,7 +38,7 @@ test('Console Test', async ({ page }) => {
   await expect(page.getByText('total')).toContainText('of 15');
 
   // Phase 5: Delete the Asset and confirm
-  await page.getByRole('link', { name: 'Fleet' }).click();
+  await page.getByRole('main').getByRole('link', { name: 'Fleet' }).click();
   await page.getByRole('main').locator('button').nth(1).click();
   await new Promise(resolve => setTimeout(resolve, 1000)); //Explicit wait
   await page.getByRole('row', { name: 'Asset Name Platform Score Last Updated' }).getByRole('checkbox').check();
