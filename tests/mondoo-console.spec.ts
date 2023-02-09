@@ -8,13 +8,14 @@ if (process.env.REGION){
 }
 
 
+
 test('Console Test', async ({ page }) => {
   await page.goto('https://console.mondoo.com/');
 
   // Phase 1: Login to US Default Space
   await page.getByRole('button', { name: 'Sign in with email instead' }).click();
-  await page.getByLabel('Email').fill('ops+checkly@mondoo.com');
-  await page.getByLabel('Password').fill('kCSSicE#*MARoR@B^U7KTw#zqJpN6gM5');
+  await page.getByLabel('Email').fill(process.env.MONDOO_USER);
+  await page.getByLabel('Password').fill(process.env.MONDOO_PASSWORD);
   await page.getByRole('button', { name: 'Sign in' }).click();
   await expect(page.locator('footer svg')).toBeVisible;
 
