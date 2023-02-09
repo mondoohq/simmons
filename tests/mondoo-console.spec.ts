@@ -29,7 +29,7 @@ test('Console Test', async ({ page }) => {
   // Phase 3: Navigate to Default Space and Find the Alpine Container Scan
   await page.getByRole('link', { name: 'default Open assets' }).click();
   await page.getByRole('link', { name: 'Fleet', exact: true }).click();
-  await expect(page.getByRole('tab', { name: 'Settings' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Settings' })).toBeVisible();
 
   // Phase 4: Find Alpine Scan
   await page.getByRole('cell', { name: 'alpine' }).nth(0).click();
