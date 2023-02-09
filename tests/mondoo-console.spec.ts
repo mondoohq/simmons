@@ -16,7 +16,7 @@ test('Console Test', async ({ page }) => {
   await page.getByLabel('Email').fill('ops+checkly@mondoo.com');
   await page.getByLabel('Password').fill('kCSSicE#*MARoR@B^U7KTw#zqJpN6gM5');
   await page.getByRole('button', { name: 'Sign in' }).click();
-  await expect(page.getByRole('heading', { name: 'WELCOME TO MONDOO' })).toBeVisible;
+  await expect(page.locator('footer svg')).toBeVisible;
 
   // Phase 2: Click the logo to get the dashboard & Select Region 
   await page.getByRole('link', { name: 'Mondoo Dashboard' }).click();
@@ -28,7 +28,7 @@ test('Console Test', async ({ page }) => {
 
   // Phase 3: Navigate to Default Space and Find the Alpine Container Scan
   await page.getByRole('link', { name: 'default Open assets' }).click();
-  await page.getByRole('tab', { name: 'Fleet' }).click();
+  await page.getByRole('link', { name: 'Fleet', exact: true }).click();
   await expect(page.getByRole('tab', { name: 'Settings' })).toBeVisible();
 
   // Phase 4: Find Alpine Scan
@@ -38,7 +38,7 @@ test('Console Test', async ({ page }) => {
   await expect(page.getByText('total')).toContainText('of 15');
 
   // Phase 5: Delete the Asset and confirm
-  await page.getByRole('tab', { name: 'Fleet' }).click();
+  await page.getByRole('link', { name: 'Fleet' }).click();
   await page.getByRole('main').locator('button').nth(1).click();
   await new Promise(resolve => setTimeout(resolve, 1000)); //Explicit wait
   await page.getByRole('row', { name: 'Asset Name Platform Score Last Updated' }).getByRole('checkbox').check();
@@ -49,7 +49,7 @@ test('Console Test', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'WELCOME TO MONDOO' })).toBeVisible();
 
   // Phase 6: Logout
-  await page.getByRole("button").nth(3).click();
+  await page.getByRole('button', { name: 'Checkly Test' }).click();
   await page.getByRole("menuitem", { name: 'Logout'}).click();
 
 });
