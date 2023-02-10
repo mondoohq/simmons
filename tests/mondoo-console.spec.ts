@@ -50,7 +50,7 @@ test('Console Test', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'WELCOME TO MONDOO' })).toBeVisible();
 
   // Phase 6: Logout
-  await page.getByRole('button', { name: 'Checkly Test' }).click();
+  await page.getByRole('button', { name: 'Richard Simmons' }).click();
   await page.getByRole("menuitem", { name: 'Logout'}).click();
 
 });
