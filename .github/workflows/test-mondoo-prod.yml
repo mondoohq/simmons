@@ -45,6 +45,10 @@ jobs:
         region: [US, EU]
     steps:
     - uses: actions/checkout@v3
+    - id: region
+      uses: Entepotenz/change-string-case-action@v1
+      with:
+        string: ${{ matrix.region }}
     - uses: actions/setup-node@v3
       with:
         node-version: 16
@@ -70,4 +74,4 @@ jobs:
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       with:
-       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The ${{ matrix.region}} :flag_${{ matrix.region }}: console test failed! -> ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} '
+       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The ${{ matrix.region}} :flag_${{ steps.string.outputs.lowercase }}: console test failed! -> ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} '
