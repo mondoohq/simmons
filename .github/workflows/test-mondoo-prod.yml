@@ -67,11 +67,11 @@ jobs:
       with:
         name: simmons-playwright-report
         path: results/
-        retention-days: 30
-    - name: Discord notification
-      uses: Ilshidur/action-discord@0.3.2
-      if: failure()
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-      with:
-       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The ${{ matrix.region}} :flag_${{ steps.region.outputs.lowercase }}: console test failed! -> ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} '
+        retention-days: 14
+#    - name: Discord notification
+#      uses: Ilshidur/action-discord@0.3.2
+#      if: failure()
+#      env:
+#        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+#      with:
+#       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The ${{ matrix.region}} :flag_${{ steps.region.outputs.lowercase }}: console test failed! -> ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} '
