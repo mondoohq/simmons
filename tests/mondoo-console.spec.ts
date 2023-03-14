@@ -13,7 +13,6 @@ test('Console Test', async ({ page }) => {
   await page.goto('https://console.mondoo.com/');
 
   // Phase 1: Login to US Default Space
-  await page.getByRole('button', { name: 'Sign in with email instead' }).click();
   await page.getByPlaceholder('Your Email...').fill(process.env.MONDOO_USER);
   await page.getByPlaceholder('Your password...').fill(process.env.MONDOO_PASSWORD);
   await page.getByRole('button', { name: 'log in' }).click();
