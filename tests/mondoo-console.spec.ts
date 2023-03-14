@@ -14,9 +14,9 @@ test('Console Test', async ({ page }) => {
 
   // Phase 1: Login to US Default Space
   await page.getByRole('button', { name: 'Sign in with email instead' }).click();
-  await page.getByLabel('Email').fill(process.env.MONDOO_USER);
-  await page.getByLabel('Password').fill(process.env.MONDOO_PASSWORD);
-  await page.getByRole('button', { name: 'Sign in' }).click();
+  await page.getByPlaceholder('Your Email...').fill(process.env.MONDOO_USER);
+  await page.getByPlaceholder('Your password...').fill(process.env.MONDOO_PASSWORD);
+  await page.getByRole('button', { name: 'log in' }).click();
   await expect(page.locator('footer svg')).toBeVisible;
 
   // Phase 2: Click the logo to get the dashboard & Select Region 
