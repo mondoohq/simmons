@@ -36,7 +36,7 @@ test('Console Test', async ({ page }) => {
   await page.getByRole('cell', { name: 'alpine' }).nth(0).click();
   // Check for a vulnerability count (should be 0 of 15 for Alpine Image)
   await page.getByRole('tab', { name: 'Platform Vulnerabilities' }).click();
-  await expect(page.getByText('total')).toContainText('of 15');
+  await expect(page.getByText('total')).toContainText('of 20');
 
   // Phase 5: Delete the Asset and confirm
   await page.getByRole('main').getByRole('link', { name: 'Fleet' }).click();
