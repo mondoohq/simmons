@@ -14,8 +14,10 @@ test('Console Test', async ({ page }) => {
 
   // Phase 1: Login to US Default Space
   await page.getByPlaceholder('Your Email...').fill(process.env.MONDOO_USER);
+  await page.keyboard.press('Tab');
   await page.getByRole('button', { name: 'continue' }).click();
   await page.getByPlaceholder('Your password...').fill(process.env.MONDOO_PASSWORD);
+  await page.keyboard.press('Tab');
   await page.getByRole('button', { name: 'log in' }).click();
   await expect(page.locator('footer svg')).toBeVisible;
 
