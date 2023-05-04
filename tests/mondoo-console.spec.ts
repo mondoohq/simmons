@@ -29,8 +29,10 @@ test('Console Test', async ({ page }) => {
   console.log('Region is:', region);
   await page.getByRole('button', { name: region }).click();
 
-  // Phase 3: Navigate to Default Space and Find the Alpine Container Scan
-  await page.getByRole('link', { name: 'default Open assets' }).click();
+  // Phase 3: Pick the Simmons Org, then Navigate to Default Space and Find the Alpine Container Scan
+  await page.getByRole('link', { name: 'Simmons' }).click();
+  await page.getByRole('link', { name: 'Spaces' }).click();
+  await page.getByRole('link', { name: 'default' }).click();
   await page.getByRole('link', { name: 'Fleet', exact: true }).click();
   await expect(page.getByRole('link', { name: 'Settings' })).toBeVisible();
 
