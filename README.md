@@ -53,8 +53,6 @@ What you'll see is:
 
 Now click and fill to your hearts content.  Save it and you have your test.
 
-Please note that the code in this repository is implemented using the Python API.
-
 WARNING: If you install all dependancies for the browsers the installation 
 requirements are quite significant.  If possible use Headless mode when
 automating tests for your CI/CD pipeline.
