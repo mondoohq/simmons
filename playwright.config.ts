@@ -22,7 +22,7 @@ const config: PlaywrightTestConfig = {
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
     video: 'retain-on-failure',
-    trace: 'retain-on-failure',
+    trace: 'off',
   },
 
   /* Configure projects for major browsers */
