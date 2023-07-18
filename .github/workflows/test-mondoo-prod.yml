@@ -50,8 +50,8 @@ jobs:
     steps:
     - uses: gitboard-io/gitboard-action@main
       with:
-        username: ${ secrets.GITBOARD_USER}
-        key: ${ secrets.GITBOARD_KEY }
+        username: ${{ secrets.GITBOARD_USER }}
+        key: ${{ secrets.GITBOARD_KEY }}
     - uses: actions/checkout@v3
     - id: region
       uses: ASzc/change-string-case-action@v5
