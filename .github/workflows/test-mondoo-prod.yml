@@ -13,8 +13,8 @@ jobs:
     steps:
     - uses: gitboard-io/gitboard-action@main
       with:
-        username: ${ secrets.GITBOARD_USER}
-        key: ${ secrets.GITBOARD_KEY }
+        username: ${{ secrets.GITBOARD_USER }}
+        key: ${{ secrets.GITBOARD_KEY }}
     - uses: actions/checkout@v3
     - name: Create US Mondoo Config
       run: | 
