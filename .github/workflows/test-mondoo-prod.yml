@@ -11,10 +11,6 @@ jobs:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
-    - uses: gitboard-io/gitboard-action@main
-      with:
-        username: ${{ secrets.GITBOARD_USER }}
-        key: ${{ secrets.GITBOARD_KEY }}
     - uses: actions/checkout@v3
     - name: Create US Mondoo Config
       run: | 
@@ -48,10 +44,6 @@ jobs:
       matrix:
         region: [US, EU]
     steps:
-    - uses: gitboard-io/gitboard-action@main
-      with:
-        username: ${{ secrets.GITBOARD_USER }}
-        key: ${{ secrets.GITBOARD_KEY }}
     - uses: actions/checkout@v3
     - id: region
       uses: ASzc/change-string-case-action@v5
