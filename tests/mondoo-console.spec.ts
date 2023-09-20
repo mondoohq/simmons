@@ -1,3 +1,8 @@
+/**
+ * Copyright (c) Mondoo, Inc.
+ * SPDX-License-Identifier: MPL-2.0
+ */
+
 // @ts-check
 import { test, expect } from '@playwright/test';
 
