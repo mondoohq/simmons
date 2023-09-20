@@ -1,3 +1,6 @@
+# Copyright (c) Mondoo, Inc.
+# SPDX-License-Identifier: MPL-2.0
+
 # Mondoo Production Console Test
 # This script assumes the following environment variables are defined:
 #   - MONDOO_USER: A valid login for the Mondoo console, with access in both US & EU Regions
