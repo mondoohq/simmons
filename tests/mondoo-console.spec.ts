@@ -26,7 +26,7 @@ test('Console Test', async ({ page }) => {
   await page.getByRole('button', { name: 'log in' }).click();
   await expect(page.locator('footer svg')).toBeVisible;
 
-  // Phase 2: Click the logo to get the dashboard & Select Region 
+  // Phase 2: Click the logo to get the dashboard & Select Region
   await page.getByRole('link', { name: 'Mondoo Dashboard' }).click();
   await page.getByRole('button', { name: 'US' }).click();
 
@@ -38,8 +38,9 @@ test('Console Test', async ({ page }) => {
   await page.getByRole('link', { name: 'Simmons' }).click();
   await page.getByRole('link', { name: 'Spaces' }).click();
   await page.getByRole('link', { name: 'default' }).click();
-  await page.getByRole('link', { name: 'Fleet', exact: true }).click();
-  await expect(page.getByRole('link', { name: 'Settings' })).toBeVisible();
+  await page.getByRole('button', { name: 'Inventory' }).click();
+  await page.getByRole('link', { name: 'All Assets' }).click();
+  await expect(page.getByRole('link', { name: /Operating System/ })).toBeVisible();
 
   // Phase 4: Find Alpine Scan
   await page.getByRole('cell', { name: 'alpine' }).nth(0).click();
@@ -48,14 +49,11 @@ test('Console Test', async ({ page }) => {
   await expect(page.getByText('total')).toContainText('total');
 
   // Phase 5: Delete the Asset and confirm
-  await page.getByRole('main').getByRole('link', { name: 'Fleet' }).click();
-  await page.getByRole('main').locator('button').nth(1).click();
+  await page.getByRole('link', { name: 'Inventory' }).click();
   await new Promise(resolve => setTimeout(resolve, 1000)); //Explicit wait
   await page.getByRole('row', { name: 'Asset Name Platform Score Last Updated' }).getByRole('checkbox').check();
-  await page.locator('#assets-batch-edit-selection').click();
-  await page.getByRole('option', { name: 'Delete' }).click();
-  await page.getByRole('button', { name: 'Done' }).click();
   await page.getByRole('button', { name: 'Delete' }).click();
+  await page.getByRole('button', { name: 'Delete' }).click(); // Confirm Delete
   //await expect(page.getByRole('heading', { name: 'WELCOME TO MONDOO' })).toBeVisible();
 
   // Phase 6: Logout
