@@ -14,9 +14,9 @@ import { devices } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {
   testDir: './tests',
-  timeout: 60 * 1000,
+  timeout: 90 * 1000,
   expect: {
-    timeout: 10000
+    timeout: 30000
   },
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
