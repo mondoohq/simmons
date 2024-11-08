@@ -3,7 +3,9 @@ on:
   workflow_dispatch:
   schedule:
     - cron:  '15,45 * * * *'
-
+env:
+  # C07R9GSGKEU == #mondoo-ops
+  SLACK_BOT_CHANNEL_ID: "C07R9GSGKEU"
 
 jobs:
   asset_scan:
@@ -34,7 +36,35 @@ jobs:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
       with:
        args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The docker scan test failed!'
-
+    - uses: slackapi/slack-github-action@v1.27.0
+      if : ${{ failure() }}
+      with:
+        channel-id: ${{ env.SLACK_BOT_CHANNEL_ID }}
+        payload: |
+            {
+            "attachments": [
+              {
+                "color": "${{ job.status == 'success' && '#00FF00' || job.status == 'failure' && '#FF0000' || '#FFA500' }}",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "fields": [
+                      {
+                        "type": "mrkdwn",
+                        "text": "<${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}/attempts/${{ github.run_attempt }}|${{ github.workflow }}>"
+                      },
+                      {
+                        "type": "mrkdwn",
+                        "text": ":rotating_light: :zap: :warning: Oh no!  Simmons says: The docker scan test failed!"
+                      }
+                    ]
+                  }
+                ]
+              }
+              ]
+            }
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
 
   console_test:
     timeout-minutes: 10
@@ -45,10 +75,6 @@ jobs:
         region: [US, EU]
     steps:
     - uses: actions/checkout@v4
-    - id: region
-      uses: ASzc/change-string-case-action@v6
-      with:
-        string: ${{ matrix.region }}
     - uses: actions/setup-node@v3
       with:
         node-version: 16
@@ -68,10 +94,32 @@ jobs:
         name: simmons-playwright-report
         path: results/
         retention-days: 14
-    - name: Discord notification
-      uses: Ilshidur/action-discord@0.3.2
-      if: failure()
-      env:
-        DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+    - uses: slackapi/slack-github-action@v1.27.0
+      if : ${{ failure() }}
       with:
-       args: ':rotating_light: :zap: :warning: Oh no!  Simmons says: The ${{ matrix.region}} :flag_${{ steps.region.outputs.lowercase }}: console test failed! -> ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }} '
+        channel-id: ${{ env.SLACK_BOT_CHANNEL_ID }}
+        payload: |
+            {
+            "attachments": [
+              {
+                "color": "${{ job.status == 'success' && '#00FF00' || job.status == 'failure' && '#FF0000' || '#FFA500' }}",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "fields": [
+                      {
+                        "type": "mrkdwn",
+                        "text": "<${{ github.event.repository.html_url }}/actions/runs/${{ github.run_id }}/attempts/${{ github.run_attempt }}|${{ github.workflow }}>"
+                      },
+                      {
+                        "type": "mrkdwn",
+                        "text": ":rotating_light: :zap: :warning: Oh no!  Simmons says: The ${{ matrix.region}} :flag-${{ matrix.region }}: console test failed! -> ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+                      }
+                    ]
+                  }
+                ]
+              }
+              ]
+            }
+      env:
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
