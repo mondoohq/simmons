@@ -28,7 +28,7 @@ jobs:
       run: | 
         docker run -v `pwd`/mondoo-config.yaml:/root/.config/mondoo/mondoo.yml --rm mondoo/client scan local
     - name: Discord notification
-      uses: Ilshidur/action-discord@0.3.2
+      uses: Ilshidur/action-discord@0.4.0
       if: failure()
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
@@ -69,7 +69,7 @@ jobs:
         path: results/
         retention-days: 14
     - name: Discord notification
-      uses: Ilshidur/action-discord@0.3.2
+      uses: Ilshidur/action-discord@0.4.0
       if: failure()
       env:
         DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
