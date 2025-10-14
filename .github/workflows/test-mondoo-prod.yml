@@ -49,7 +49,7 @@ jobs:
       uses: ASzc/change-string-case-action@v6
       with:
         string: ${{ matrix.region }}
-    - uses: actions/setup-node@v4
+    - uses: actions/setup-node@v6
       with:
         node-version: 16
     - name: Install dependencies
