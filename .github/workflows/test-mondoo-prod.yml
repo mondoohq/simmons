@@ -11,7 +11,7 @@ jobs:
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - name: Create US Mondoo Config
       run: | 
         echo ${{ secrets.MONDOO_CONFIG_US }} | base64 -d > mondoo-config.yaml
@@ -44,7 +44,7 @@ jobs:
       matrix:
         region: [US, EU]
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - id: region
       uses: ASzc/change-string-case-action@v6
       with:
